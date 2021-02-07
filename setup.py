@@ -8,7 +8,7 @@ def readme():
 
 
 setup(
-    name="buses-in-Warsaw-bd",
+    name="buses-Warsaw-bd",
     version="1.0.0",
     description="Python package containing tools for analysing data on buses in Warsaw",
     long_description=readme(),
@@ -21,7 +21,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6"
     ],
-    packages=["buses_in_Warsaw_bd"],
+    packages=["buses_Warsaw_bd"],
     include_package_data=True,
     install_requires=["numpy", "pandas", "geopy", "matplotlib"]
 )
