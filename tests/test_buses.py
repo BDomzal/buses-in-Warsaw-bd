@@ -20,7 +20,7 @@ class TestBuses(unittest.TestCase):
         self.assertIsNone(result2[0])
 
     def test_load_from_files(self):
-        result = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_Warsaw_bd/data', 'data')
+        result = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_warsaw/data', 'data')
         self.assertIsNot(result[0], [])
         self.assertEqual(result[0]["Lines"].dtypes, 'object')
         self.assertEqual(result[0]["Lon"].dtypes, 'float64')
@@ -28,37 +28,37 @@ class TestBuses(unittest.TestCase):
         self.assertEqual(result[0]["Time"].dtypes, '<M8[ns]')
         self.assertEqual(result[0]["Lat"].dtypes, 'float64')
         self.assertEqual(result[0]["Brigade"].dtypes, 'object')
-        self.assertRaises(ValueError, buses.load_from_files, os.path.dirname(os.getcwd())+'/buses_Warsaw_bd/data', 'bus_stops')
+        self.assertRaises(ValueError, buses.load_from_files, os.path.dirname(os.getcwd())+'/buses_warsaw/data', 'bus_stops')
 
     def test_distance(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_Warsaw_bd/data', 'data')
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_warsaw/data', 'data')
         dist = buses.distance(dataset, 0, len(dataset)-1)
         self.assertTrue(dist["Distance"].ge(0).all())
         self.assertTrue(dist["Distance"].le(70).all())
 
     def test_time_difference(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_Warsaw_bd/data', 'data')
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_warsaw/data', 'data')
         t = buses.time_difference(dataset, 0, len(dataset)-1)
         self.assertTrue(t["Time_difference"].ge(0).all())
 
     def test_inst_velocity(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_Warsaw_bd/data', 'data')
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_warsaw/data', 'data')
         v = buses.inst_velocity(dataset, 0, len(dataset)-1)
         self.assertTrue(v["Velocity"][v["Velocity"].notna()].ge(0).all())
         self.assertTrue(v["Velocity"][v["Velocity"].notna()].le(200).all())
 
     def test_exceed_50(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_Warsaw_bd/data', 'data')
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd())+'/buses_warsaw/data', 'data')
         result = buses.exceed_50(dataset, 0, len(dataset)-1)
         self.assertTrue(result["Velocity"].ge(50).all())
 
     def test_all_exceeding_50(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_Warsaw_bd/data', 'data')
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_warsaw/data', 'data')
         result = buses.all_exceeding_50(dataset)
         self.assertTrue(result["Velocity"].ge(50).all())
 
     def test_how_many_exceeded_50(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_Warsaw_bd/data', 'data')
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_warsaw/data', 'data')
         result = buses.how_many_exceeded_50(dataset)
         self.assertTrue(result > 0)
 
@@ -69,7 +69,7 @@ class TestBuses(unittest.TestCase):
         self.assertFalse(result)
 
     def test_percentage_exceeding_50(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_Warsaw_bd/data', 'data')
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_warsaw/data', 'data')
         result = buses.percentage_exceeding_50(dataset, 52, 21, 100)
         self.assertTrue(result >= 0 and result <= 1)
 
@@ -79,7 +79,7 @@ class TestBuses(unittest.TestCase):
         self.assertTrue(buses.load_bus_stops('a').empty)
 
     def test_load_bus_stops_from_file(self):
-        result = buses.load_bus_stops_from_file(os.path.dirname(os.getcwd())+'/buses_Warsaw_bd/data', 'bus_stops_0.txt')
+        result = buses.load_bus_stops_from_file(os.path.dirname(os.getcwd())+'/buses_warsaw/data', 'bus_stops_0.txt')
         self.assertIsNotNone(result)
         self.assertEqual(result["zespol"].dtypes, 'object')
         self.assertEqual(result["slupek"].dtypes, 'object')
@@ -96,7 +96,7 @@ class TestBuses(unittest.TestCase):
         self.assertTrue(buses.load_schedule(7009, '99', 523, 'a').empty)
 
     def test_load_schedule_from_file(self):
-        result = buses.load_schedule_from_file(os.path.dirname(os.getcwd()) + '/buses_Warsaw_bd/data', 'schedule_7009_01_523_0.txt')
+        result = buses.load_schedule_from_file(os.path.dirname(os.getcwd()) + '/buses_warsaw/data', 'schedule_7009_01_523_0.txt')
         self.assertIsNotNone(result)
         self.assertEqual(result["symbol_2"].dtypes, 'float64')
         self.assertEqual(result["symbol_1"].dtypes, 'float64')
@@ -106,8 +106,8 @@ class TestBuses(unittest.TestCase):
         self.assertEqual(result["czas"].dtypes, 'datetime64[ns]')
 
     def test_is_on_time(self):
-        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_Warsaw_bd/data', 'data')
-        locations_dataset = buses.load_bus_stops_from_file(os.path.dirname(os.getcwd()) + '/buses_Warsaw_bd/data', "bus_stops_0.txt")
+        dataset = buses.load_from_files(os.path.dirname(os.getcwd()) + '/buses_warsaw/data', 'data')
+        locations_dataset = buses.load_bus_stops_from_file(os.path.dirname(os.getcwd()) + '/buses_warsaw/data', "bus_stops_0.txt")
         result = buses.is_on_time(dataset, locations_dataset, "Marszałkowska", "01", 520, api_key='b2b6deb9-bb03-4279-b25d-55fa1bb97690')
         self.assertTrue(result <= 1)
         result = buses.is_on_time(dataset, locations_dataset, "Marszałkowska", "01", 521, api_key='b2b6deb9-bb03-4279-b25d-55fa1bb97690')
