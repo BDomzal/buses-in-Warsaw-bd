@@ -21,7 +21,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6"
     ],
-    packages="buses_in_Warsaw_bd",
+    packages=["buses_in_Warsaw_bd"],
     include_package_data=True,
     install_requires=["numpy", "pandas", "geopy", "matplotlib"]
 )
