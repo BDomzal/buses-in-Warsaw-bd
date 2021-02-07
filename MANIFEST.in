@@ -1,1 +1,4 @@
-include READ.me LICENSE
+include README.md
+include LICENSE
+recursive-include test *
+recursive-include buses_in_Warsaw_bd/data *
