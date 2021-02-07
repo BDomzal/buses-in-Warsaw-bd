@@ -9,7 +9,7 @@ def readme():
 
 setup(
     name="buseswarsaw",
-    version="1.0.0",
+    version="1.0.1",
     description="Python package containing tools for analysing data on buses in Warsaw",
     long_description=readme(),
     long_description_content_type="text/markdown",

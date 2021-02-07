@@ -246,22 +246,23 @@ def percentage_exceeding_50(dataset, place_lat, place_lon, radius):
         print("No busus in this region for given dataset")
 
 
-def plot_on_map(dataframe, title):
+def plot_on_map(dataframe, title, path_to_map):
     """
     For a given dataframe with locations of buses plots these locations on the map of Warsaw.
     :param dataframe: A dataframe containing columns "Lon" and "Lat".
     :param title: Title for the plot.
+    :param path_to_map: here the best idea is to use the map provided with the package, i.e. set this parameter to os.path.dirname(buses_warsaw.__file__)+'/map.png'
     :return: None.
     """
     df = dataframe[["Lon", "Lat"]]
     Box = ((20.8000, 21.3000, 52.1000, 52.3500))
-    ruh_m = plt.imread(os.getcwd()+'/map.png')
+    ruh_m = plt.imread(path_to_map)
     fig, ax = plt.subplots()
     ax.scatter(df["Lon"], df["Lat"], zorder=1, alpha=1, c='b', s=10)
     ax.set_title(title)
     ax.set_xlim(Box[0], Box[1])
     ax.set_ylim(Box[2], Box[3])
-    ax.imshow(ruh_m, zorder=0, extent = Box, aspect= 'equal')
+    ax.imshow(ruh_m, zorder=0, extent = Box, aspect='equal')
     plt.show()
 
 
