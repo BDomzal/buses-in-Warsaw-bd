@@ -1,4 +1,4 @@
-# Buses-Warsaw-bd Package
+# buseswarsaw Package
 
 Python package containing tools for analysing data on buses in Warsaw.
 

@@ -1,5 +1,5 @@
 import unittest
-from buses_in_Warsaw_bd import buses
+from buses_warsaw import buses
 import pandas as pd
 import os
 import os.path
