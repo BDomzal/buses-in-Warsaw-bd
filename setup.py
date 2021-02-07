@@ -13,7 +13,7 @@ setup(
     description="Python package containing tools for analysing data on buses in Warsaw",
     long_description=readme(),
     long_description_content_type="text/markdown",
-    url="https://github.com/BDomzal/buses-in_Warsaw-bd",
+    url="https://github.com/BDomzal/buses-in-Warsaw-bd",
     author="Barbara Domżał",
     license="MIT",
     classifiers=[
